@@ -1,0 +1,89 @@
+import java.util.*;
+
+public class Dama2 {
+    //zde probehne nacteni tahu a preda se pravd. hodnota do metody kontrolaHry
+    static boolean nacteniTahu(boolean kdoHraje){
+        if(kdoHraje == true){
+            System.out.println("Hraje bila:");
+        } else if(kdoHraje == false){
+            System.out.println("Hraje Cerna");
+        }
+        Scanner sc = new Scanner(System.in);
+        boolean spatnyTah = true;
+        while(spatnyTah){
+            System.out.println("Odkud tahnout: ");
+            String odkud = sc.next();
+            System.out.println("Kam tahnout: ");
+            String kam = sc.next();
+
+            if(odkud.equals(kam)){
+                neplatnyTah();
+                spatnyTah=true; //mozna bude false aby se to zase prohodilo a jela znova true
+            } else {
+                spatnyTah=false;
+                kdoHraje=false;
+            }
+        }
+        return kdoHraje;
+    }
+    //kontrola, zda je zadany tah spravny
+    static boolean kontrolaHry(){        
+        boolean hra=true;
+        return hra;
+    }
+    // metoda pro vyrazeni figurky TODO
+    void vyrazeniFigurky(){
+        
+    }
+    //zde se vezme hodnota z metody nacteniTahu a opacna hodnota se vrati do metody nacteniTahu
+    static boolean prohozeniHracu(boolean hrac){
+        if(hrac == false){
+            hrac = true;
+        } else if(hrac == true){
+            hrac = false;
+        }
+        return hrac;
+    }
+    static boolean hraBezi(boolean hra){
+        boolean hraBezi;
+        if(hra==true){
+            hraBezi=true;
+        } else {
+            hraBezi=false;
+        }
+        return hraBezi;
+    }
+    static void neplatnyTah(){
+        System.out.println("Neplatny tah, opakujte");
+    }
+    public static void main(String[] args) {
+        //vytvoreni pole
+        int[][] sachovnice = {
+                {1,0,1,0,1,0,1,0},
+                {0,1,0,1,0,1,0,1},
+                {1,0,1,0,1,0,1,0},
+                {0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,2}
+            };
+        
+        boolean hraje=false;
+        
+        while(hraBezi(kontrolaHry())){
+            //vypis sachovnice
+            for(int i=0; i<sachovnice.length; i++){
+                for(int j=0; j<sachovnice.length; j++){
+                    System.out.print(sachovnice[i][j] + " ");
+                }
+                System.out.println();
+            }
+            
+            nacteniTahu(hraje);
+            prohozeniHracu(hraje);
+            
+        }
+        System.out.println("ne");
+    }
+}
